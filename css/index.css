@@ -11,7 +11,7 @@ main {
     grid-template-areas: 
         "player opponent"
         "score score";
-    justify-items: center;
+    justify-items: stretch;
     grid-gap: 1rem;
 }
 
@@ -26,7 +26,6 @@ main {
 
 #player-choice {
     grid-area: player;
-    width: 100%;
     text-align: center;
     border: black solid 0.5mm;
     background: white;
@@ -40,7 +39,6 @@ main {
 
 #opponent-choice {
     grid-area: opponent;
-    width: 100%;
     text-align: center;
     border: black solid 0.5mm;
     background: white;
@@ -48,7 +46,6 @@ main {
 
 #score {
     grid-area: score;
-    width: 100%;
     text-align: center;
     border: black dotted 0.5mm;
     background: white;
