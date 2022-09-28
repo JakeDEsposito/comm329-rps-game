@@ -42,19 +42,27 @@ function playGame (playerChoice) {
 
     const gameResult = determineGame(playerChoice, opponentChoice)
 
-    switch (gameResult) {
-        case 1:
-            incrementScore("wins")
-            break
-        case 0:
-            incrementScore("ties")
-            break
-        case -1:
-            incrementScore("losses")
-            break
-    }
+    $("#opponent-choice-icon").text("")
+    $("#player-choice-text").removeClass("pulse")
+    $("#opponent-choice-text").addClass("pulse")
+    animateOpponentSpinner().then(() => {
+        switch (gameResult) {
+            case 1:
+                incrementScore("wins")
+                break
+            case 0:
+                incrementScore("ties")
+                break
+            case -1:
+                incrementScore("losses")
+                break
+        }
 
-    update(playerChoice, opponentChoice, gameResult)
+        update(playerChoice, opponentChoice, gameResult)
+
+        $("#opponent-choice-text").removeClass("pulse")
+        $("#player-choice-text").addClass("pulse")
+    })
 }
 
 function getScore (type) {
@@ -126,10 +134,47 @@ function update (playerChoice, opponentChoice, gameResult) {
     $("#ties").text(getScore("ties"))
     $("#losses").text(getScore("losses"))
 
+    $("#wins").removeClass("pulse-once")
+    $("#ties").removeClass("pulse-once")
+    $("#losses").removeClass("pulse-once")
+
     if (gameResult !== undefined) {
         $("#opponent-choice-icon").text(choiceToIcon(opponentChoice))
         $("#gameResult").text(`${choiceToString(playerChoice)} ${gameResultVsText(gameResult)} ${choiceToString(opponentChoice).toLowerCase()}. You ${gameResultText(gameResult)}!`)
+
+        switch (gameResult) {
+            case 1:
+                $("#wins").addClass("pulse-once")
+                break
+            case 0:
+                $("#ties").addClass("pulse-once")
+                break
+            case -1:
+                $("#losses").addClass("pulse-once")
+                break
+        }
     }
 }
 
 update()
+
+const delay = async (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms))
+
+async function animateOpponentSpinner () {
+
+    $("#opponent-spinner").css("display", "revert")
+
+    await delay(2000)
+
+    $("#opponent-spinner").attr("scrollamount", 25)
+
+    await delay(2000)
+
+    $("#opponent-spinner").attr("scrollamount", 10)
+
+    await delay(2000)
+
+    $("#opponent-spinner").css("display", "none")
+    $("#opponent-spinner").attr("scrollamount", 50)
+
+}

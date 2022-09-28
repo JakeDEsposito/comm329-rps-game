@@ -19,7 +19,7 @@
         <main>
 
             <section id="player-choice">
-                <h2 class="pulse">Your Choice</h2>
+                <h2 id="player-choice-text" class="pulse">Your Choice</h2>
                 <div>
                     <span class="material-symbols-outlined" onclick="playGame(0x001)">
                         diamond
@@ -34,8 +34,16 @@
             </section>
 
             <section id="opponent-choice">
-                <h2>Opponents Choice</h2>
+                <h2 id="opponent-choice-text">Opponents Choice</h2>
+
                 <span class="material-symbols-outlined" id="opponent-choice-icon"></span>
+
+                <marquee id="opponent-spinner" scrollamount="50">
+                    <span class="material-symbols-outlined" id="opponent-icon">diamond</span>
+                    <span class="material-symbols-outlined" id="opponent-icon">note</span>
+                    <span class="material-symbols-outlined" id="opponent-icon">cut</span>
+                </marquee>
+
             </section>
 
             <section id="score">
