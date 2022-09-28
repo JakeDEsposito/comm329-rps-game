@@ -1,0 +1,73 @@
+body {
+    background: rgb(185, 185, 185);
+}
+
+h1 {
+    text-align: center;
+}
+
+main {
+    display: grid;
+    grid-template-areas: 
+        "player opponent"
+        "score score";
+    justify-items: center;
+    grid-gap: 1rem;
+}
+
+@media only screen and (max-width: 768px) {
+    main {
+        grid-template:
+        "player"
+        "opponent"
+        "score";
+    }
+}
+
+#player-choice {
+    grid-area: player;
+    width: 100%;
+    text-align: center;
+    border: black solid 0.5mm;
+    background: white;
+}
+
+#player-choice > div {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+#opponent-choice {
+    grid-area: opponent;
+    width: 100%;
+    text-align: center;
+    border: black solid 0.5mm;
+    background: white;
+}
+
+#score {
+    grid-area: score;
+    width: 100%;
+    text-align: center;
+    border: black dotted 0.5mm;
+    background: white;
+}
+
+#score > div {
+    display: flex;
+    justify-content: space-around;
+}
+
+.pulse {
+    animation-name: pulse-animation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes pulse-animation {
+    50% {
+        transform: scale(0.9);
+        color: gray;
+    }
+}

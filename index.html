@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link href="css/index.css" rel="stylesheet">
+        <script src="res/game.js" defer></script>
+
+        <title>Rock, Paper, Scissors</title>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+        <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <h1>Rock, Paper, Scissors</h1>
+
+        <main>
+
+            <section id="player-choice">
+                <h2 class="pulse">Your Choice</h2>
+                <div>
+                    <span class="material-symbols-outlined" onclick="playGame(0x001)">
+                        diamond
+                    </span>
+                    <span class="material-symbols-outlined" onclick="playGame(0x010)">
+                        note
+                    </span>
+                    <span class="material-symbols-outlined" onclick="playGame(0x100)">
+                        cut
+                    </span>
+                </div>
+            </section>
+
+            <section id="opponent-choice">
+                <h2>Opponents Choice</h2>
+                <span class="material-symbols-outlined" id="opponent-choice-icon"></span>
+            </section>
+
+            <section id="score">
+                <h2 id="gameResult"></h2>
+                <div>
+                    <div>
+                        <h3 id="wins">1</h3>
+                        <p>Wins</p>
+                    </div>
+                    <div>
+                        <h3 id="ties">1</h3>
+                        <p>Ties</p>
+                    </div>
+                    <div>
+                        <h3 id="losses">1</h3>
+                        <p>Losses</p>
+                    </div>
+                </div>
+                <button onclick="clearScores()">Reset Score</button>
+            </section>
+
+        </main>
+    </body>
+</html>
