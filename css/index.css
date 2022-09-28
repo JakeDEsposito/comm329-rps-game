@@ -20,6 +20,7 @@ main {
         "score score";
     justify-items: stretch;
     grid-gap: 1rem;
+    grid-template-columns: 1fr 1fr;
 }
 
 @media only screen and (max-width: 768px) {
@@ -72,8 +73,8 @@ main {
 }
 
 #score > div {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .pulse {
