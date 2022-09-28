@@ -34,7 +34,10 @@ function determineGame (player, opponent) {
 function playGame (playerChoice) {
 
     // Make opponent choice
-    const shift = Math.floor(Math.random() * 3)
+    let shift = Math.floor(Math.random() * 3)
+    if (shift === 3)
+        shift = 2
+
     const opponentChoice = 0x1 << (shift * 4)
 
     const gameResult = determineGame(playerChoice, opponentChoice)
@@ -54,18 +57,6 @@ function playGame (playerChoice) {
     update(playerChoice, opponentChoice, gameResult)
 }
 
-function incrementScore (type) {
-    const localStorageScore = localStorage.getItem(type)
-    if (localStorageScore) {
-        const score = new Number(localStorageScore)
-        localStorage.setItem(type, score + 1)
-    }
-    else {
-        localStorage.setItem(type, 1)
-        return 1
-    }
-}
-
 function getScore (type) {
     const localStorageScore = localStorage.getItem(type)
     if (localStorageScore)
@@ -74,6 +65,11 @@ function getScore (type) {
         localStorage.setItem(type, 0)
         return 0
     }
+}
+
+function incrementScore (type) {
+    const score = getScore(type)
+    localStorage.setItem(type, score + 1)
 }
 
 function clearScores () {
@@ -126,16 +122,11 @@ function gameResultText (gameResult) {
 }
 
 function update (playerChoice, opponentChoice, gameResult) {
-    if (gameResult === undefined) {
-        $("#wins").text(getScore("wins"))
-        $("#ties").text(getScore("ties"))
-        $("#losses").text(getScore("losses"))
-    }
-    else {
-        $("#wins").text(getScore("wins"))
-        $("#ties").text(getScore("ties"))
-        $("#losses").text(getScore("losses"))
+    $("#wins").text(getScore("wins"))
+    $("#ties").text(getScore("ties"))
+    $("#losses").text(getScore("losses"))
 
+    if (gameResult !== undefined) {
         $("#opponent-choice-icon").text(choiceToIcon(opponentChoice))
         $("#gameResult").text(`${choiceToString(playerChoice)} ${gameResultVsText(gameResult)} ${choiceToString(opponentChoice).toLowerCase()}. You ${gameResultText(gameResult)}!`)
     }
