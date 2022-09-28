@@ -31,6 +31,10 @@ function determineGame (player, opponent) {
     }
 }
 
+const winSound = new Audio("res/win.wav")
+const tieSound = new Audio("res/tie.wav")
+const lossSound = new Audio("res/loss.wav")
+
 function playGame (playerChoice) {
 
     // Make opponent choice
@@ -48,12 +52,15 @@ function playGame (playerChoice) {
     animateOpponentSpinner().then(() => {
         switch (gameResult) {
             case 1:
+                winSound.play()
                 incrementScore("wins")
                 break
             case 0:
+                tieSound.play()
                 incrementScore("ties")
                 break
             case -1:
+                lossSound.play()
                 incrementScore("losses")
                 break
         }
