@@ -87,7 +87,10 @@ function incrementScore (type) {
     localStorage.setItem(type, score + 1)
 }
 
+const rewindSound = new Audio("res/rewind.wav")
+
 function clearScores () {
+    rewindSound.play()
     localStorage.clear()
     update()
 }
@@ -147,6 +150,7 @@ function update (playerChoice, opponentChoice, gameResult) {
 
     if (gameResult !== undefined) {
         $("#opponent-choice-icon").text(choiceToIcon(opponentChoice))
+        $("#gameResult").css("visibility", "visible")
         $("#gameResult").text(`${choiceToString(playerChoice)} ${gameResultVsText(gameResult)} ${choiceToString(opponentChoice).toLowerCase()}. You ${gameResultText(gameResult)}!`)
 
         switch (gameResult) {

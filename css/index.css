@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
 
-h1, h2, h3, p {
+h1, h2, h3, p, button {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -58,6 +58,7 @@ main {
     text-align: center;
     border: black solid 0.5mm;
     background: white;
+    height: 104px;
 }
 
 #opponent-choice > marquee {
@@ -70,6 +71,7 @@ main {
     text-align: center;
     border: black dashed 1mm;
     background: white;
+    padding: 2mm;
 }
 
 #score > div {
@@ -81,12 +83,13 @@ main {
     animation-name: pulse-animation;
     animation-duration: 1s;
     animation-iteration-count: infinite;
+    --pulse-color: gray;
 }
 
 @keyframes pulse-animation {
     50% {
         transform: scale(0.9);
-        color: gray;
+        color: var(--pulse-color);
     }
 }
 
@@ -94,4 +97,12 @@ main {
     animation-name: pulse-animation;
     animation-duration: 1s;
     animation-iteration-count: 1;
+}
+
+#wins {
+    --pulse-color: green;
+}
+
+#losses {
+    --pulse-color: red;
 }
