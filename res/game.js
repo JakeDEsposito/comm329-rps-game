@@ -189,3 +189,12 @@ async function animateOpponentSpinner () {
     $("#opponent-spinner").attr("scrollamount", 50)
 
 }
+
+/*
+
+Get better colors
+
+Add settings to switch between localStorage and sessionStorage
+Add settings to toggle audio on and off
+
+*/
