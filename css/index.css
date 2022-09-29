@@ -4,12 +4,23 @@ h1, h2, h3, p, button {
     font-family: 'Roboto', sans-serif;
 }
 
+h1 {
+    color: white;
+    backdrop-filter: brightness(0.4);
+    width: fit-content;
+    padding: 0 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 h3 {
     font-size: 2rem;
 }
 
 body {
-    background: rgb(185, 185, 185);
+    background-color: rgb(185, 185, 185);
+    background-image: url("../res/background.png");
+    background-repeat: repeat;
     user-select: none;
 }
 
