@@ -97,8 +97,6 @@ function playGame (playerChoice) {
     })
 }
 
-const storage = localStorage
-
 /**
  * Safely gets the score for wins, ties, or losses as a number.
  * @param {"wins" | "ties" | "losses"} type 
@@ -109,11 +107,11 @@ const storage = localStorage
  * @returns {Number}
  */
 function getScore (type) {
-    const storageScore = storage.getItem(type)
+    const storageScore = localStorage.getItem(type)
     if (storageScore)
         return new Number(storageScore)
     else {
-        storage.setItem(type, 0)
+        localStorage.setItem(type, 0)
         return 0
     }
 }
@@ -126,7 +124,7 @@ function getScore (type) {
  */
 function incrementScore (type) {
     const score = getScore(type)
-    storage.setItem(type, score + 1)
+    localStorage.setItem(type, score + 1)
 }
 
 /**
@@ -136,7 +134,7 @@ function incrementScore (type) {
  */
 function clearScores () {
     rewindSound.play()
-    storage.clear()
+    localStorage.clear()
     update()
 }
 
@@ -264,11 +262,41 @@ async function animateOpponentSpinner () {
 
 }
 
-/*
+/**
+ * Event for muting and unmuting audio
+ * @param {void}
+ * @return {void}
+ */
+function e_MuteAudio () {
+    const checked = new Boolean(document.getElementById("muteAudio").checked)
 
-Get better colors
+    console.log(checked)
 
-Add settings to switch between localStorage and sessionStorage
-Add settings to toggle audio on and off
+    winSound.muted = checked
+    tieSound.muted = checked
+    lossSound.muted = checked
+    rewindSound.muted = checked
 
-*/
+    localStorage.setItem("muteAudio", checked)
+}
+
+/**
+ * Function that only runs on load for setting the audio to mute based on local storage
+ * @param {void}
+ * @return {void}
+ */
+function l_MuteAudio () {
+    const storageValue = localStorage.getItem("muteAudio") == "false" ? false : true
+
+    console.log(storageValue)
+
+    winSound.muted = storageValue
+    tieSound.muted = storageValue
+    lossSound.muted = storageValue
+    rewindSound.muted = storageValue
+
+    $("#muteAudio").attr("checked", storageValue)
+}
+l_MuteAudio()
+
+// TODO: Add settings to switch between localStorage and sessionStorage (probably won't happen)

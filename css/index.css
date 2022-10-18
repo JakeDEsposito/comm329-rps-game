@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
 
-h1, h2, h3, p, button {
+/* TODO: Get better colors */
+
+h1, h2, h3, p, button, label {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -32,7 +34,8 @@ main {
     display: grid;
     grid-template-areas: 
         "player opponent"
-        "score score";
+        "score score"
+        "settings settings";
     justify-items: stretch;
     grid-gap: 1rem;
     grid-template-columns: 1fr 1fr;
@@ -43,7 +46,8 @@ main {
         grid-template:
         "player"
         "opponent"
-        "score";
+        "score"
+        "settings";
     }
 }
 
@@ -92,6 +96,19 @@ main {
 #score > div {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+}
+
+#settings {
+    grid-area: settings;
+    text-align: center;
+    border: black solid 0.5mm;
+    background: white;
+    padding: 2mm;
+}
+
+#settings > div {
+    display: flex;
+    justify-content: space-around;
 }
 
 .pulse {
