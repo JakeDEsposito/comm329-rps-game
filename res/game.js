@@ -2,17 +2,17 @@
 // This isn't lisensed but if you use code from here it would be nice if you credit me or like to my Github or website.
 
 /**
- * @param {Number} player is a hex numbers that can be 0x001, 0x010, or 0x100
- * @param {Number} opponent is a hex numbers that can be 0x001, 0x010, or 0x100
+ * @param {0x001 | 0x010 | 0x100} player is a hex numbers that can be 0x001, 0x010, or 0x100
+ * @param {0x001 | 0x010 | 0x100} opponent is a hex numbers that can be 0x001, 0x010, or 0x100
  * 
  * 0x001 : rock
  * 0x010 : paper
  * 0x100 : scissors
  *
- * @returns {-1} if the opponent won
- * @returns {1} if the player won
- * @returns {0} if there is a tie
-*/
+ * @returns {-1} -1 if the opponent won
+ * @returns {1} 1 if the player won
+ * @returns {0} 0 if there is a tie
+ */
 function determineGame (player, opponent) {
     // If the player and opponent pick the same option, the there is a tie
     if (player === opponent)
@@ -48,9 +48,7 @@ const rewindSound = new Audio("res/rewind.wav")
 
 /**
  * This function is called when clicking on the rock, paper, or scissors
- * @param {Number} playerChoice the hex value that represents the choice. See determineGame.
- * 
- * @return {void}
+ * @param {0x001 | 0x010 | 0x100} playerChoice the hex value that represents the choice. See determineGame.
  */
 function playGame (playerChoice) {
 
@@ -104,7 +102,7 @@ function playGame (playerChoice) {
  * If it exists, it will return its value.
  * If it doesn't exist, it will set its value to 0 and return 0.
  * 
- * @returns {Number}
+ * @returns {Number} The score.
  */
 function getScore (type) {
     const storageScore = localStorage.getItem(type)
@@ -120,7 +118,7 @@ function getScore (type) {
  * Increments the score for wins, ties, or losses.
  * @param {"wins" | "ties" | "losses"} type 
  * 
- * @returns {Number}
+ * @returns {Number} The incremented score.
  */
 function incrementScore (type) {
     const score = getScore(type)
@@ -128,16 +126,23 @@ function incrementScore (type) {
 }
 
 /**
- * Clears storage of any scores
- * @param {void}
- * @return {void}
+ * Clears storage of any scores.
  */
 function clearScores () {
     rewindSound.play()
-    localStorage.clear()
+
+    localStorage.setItem("wins", 0)
+    localStorage.setItem("ties", 0)
+    localStorage.setItem("losses", 0)
+
     update()
 }
 
+/**
+ * Converts the hex choice to a usable string.
+ * @param {0x001 | 0x010 | 0x100} choice 
+ * @returns {"Rock" | "Paper" | "Scissors"}
+ */
 function choiceToString (choice) {
     switch (choice) {
         case 0x001:
@@ -149,6 +154,11 @@ function choiceToString (choice) {
     }
 }
 
+/**
+ * Coverts the hex choice to its appropriate icon.
+ * @param {0x001 | 0x010 | 0x100} choice 
+ * @returns {"diamond" | "note" | "cut"}
+ */
 function choiceToIcon (choice) {
     switch (choice) {
         case 0x001:
@@ -160,6 +170,11 @@ function choiceToIcon (choice) {
     }
 }
 
+/**
+ * Returns a string of the player vs opponent outcome.
+ * @param {1 | 0 | -1} gameResult 
+ * @returns {"beats" | "ties" | "does not beat"}
+ */
 function gameResultVsText (gameResult) {
     switch (gameResult) {
         case 1:
@@ -171,6 +186,11 @@ function gameResultVsText (gameResult) {
     }
 }
 
+/**
+ * Returns result of the game for the player.
+ * @param {1 | 0 | -1} gameResult 
+ * @returns {"win" | "tie" | "loose"}
+ */
 function gameResultText (gameResult) {
     switch (gameResult) {
         case 1:
@@ -187,8 +207,6 @@ function gameResultText (gameResult) {
  * @param {Number} playerChoice is a hex numbers that can be 0x001, 0x010, or 0x100. See determineGame.
  * @param {Number} opponentChoice is a hex numbers that can be 0x001, 0x010, or 0x100. See determineGame.
  * @param {Number} gameResult is a hex numbers that can be 0x001, 0x010, or 0x100. See determineGame.
- * 
- * @return {void}
  */
 function update (playerChoice, opponentChoice, gameResult) {
     // Updates the wins, ties, and looses text
@@ -232,8 +250,6 @@ const delay = async (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms
 
 /**
  * Animates the opponent choice spinner
- * @param {void}
- * @return {void}
  */
 async function animateOpponentSpinner () {
 
@@ -270,8 +286,6 @@ $("#muteAudio").attr("checked", storageValue)
 
 /**
  * Event for muting and unmuting audio
- * @param {void}
- * @return {void}
  */
 function checkBoxMuteAudio () {
     const checked = document.getElementById("muteAudio").checked
