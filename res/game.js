@@ -200,34 +200,32 @@ function update (playerChoice, opponentChoice, gameResult) {
     $("#ties").removeClass("pulse-once")
     $("#losses").removeClass("pulse-once")
 
-    // On the initial page load, gameResult will be undefined so we can skip all of this. Otherwise run it.
-    if (gameResult !== undefined) {
+    // Sets icon of then opponents choice
+    $("#opponent-choice-icon").text(choiceToIcon(opponentChoice))
 
-        // Sets icon of then opponents choice
-        $("#opponent-choice-icon").text(choiceToIcon(opponentChoice))
+    $("#gameResult").css("visibility", "visible")
 
-        $("#gameResult").css("visibility", "visible")
+    // Updates the game result text
+    $("#gameResult").text(`${choiceToString(playerChoice)} ${gameResultVsText(gameResult)} ${choiceToString(opponentChoice).toLowerCase()}. You ${gameResultText(gameResult)}!`)
 
-        // Updates the game result text
-        $("#gameResult").text(`${choiceToString(playerChoice)} ${gameResultVsText(gameResult)} ${choiceToString(opponentChoice).toLowerCase()}. You ${gameResultText(gameResult)}!`)
-
-        // Pulses the score that gets changed based on gameResult
-        switch (gameResult) {
-            case 1:
-                $("#wins").addClass("pulse-once")
-                break
-            case 0:
-                $("#ties").addClass("pulse-once")
-                break
-            case -1:
-                $("#losses").addClass("pulse-once")
-                break
-        }
+    // Pulses the score that gets changed based on gameResult
+    switch (gameResult) {
+        case 1:
+            $("#wins").addClass("pulse-once")
+            break
+        case 0:
+            $("#ties").addClass("pulse-once")
+            break
+        case -1:
+            $("#losses").addClass("pulse-once")
+            break
     }
 }
 
-// Calls update on file load
-update()
+// Updates score on page load
+$("#wins").text(getScore("wins"))
+$("#ties").text(getScore("ties"))
+$("#losses").text(getScore("losses"))
 
 // Fun promise based delay that I found on stack overflow lol. Thanks mystery internet person.
 const delay = async (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms))
@@ -262,13 +260,21 @@ async function animateOpponentSpinner () {
 
 }
 
+// Determines whether audio should be mute or not and updates game accordingly
+const storageValue = localStorage.getItem("muteAudio") == "false" ? false : true
+winSound.muted = storageValue
+tieSound.muted = storageValue
+lossSound.muted = storageValue
+rewindSound.muted = storageValue
+$("#muteAudio").attr("checked", storageValue)
+
 /**
  * Event for muting and unmuting audio
  * @param {void}
  * @return {void}
  */
-function e_MuteAudio () {
-    const checked = new Boolean(document.getElementById("muteAudio").checked)
+function checkBoxMuteAudio () {
+    const checked = document.getElementById("muteAudio").checked
 
     console.log(checked)
 
@@ -279,24 +285,3 @@ function e_MuteAudio () {
 
     localStorage.setItem("muteAudio", checked)
 }
-
-/**
- * Function that only runs on load for setting the audio to mute based on local storage
- * @param {void}
- * @return {void}
- */
-function l_MuteAudio () {
-    const storageValue = localStorage.getItem("muteAudio") == "false" ? false : true
-
-    console.log(storageValue)
-
-    winSound.muted = storageValue
-    tieSound.muted = storageValue
-    lossSound.muted = storageValue
-    rewindSound.muted = storageValue
-
-    $("#muteAudio").attr("checked", storageValue)
-}
-l_MuteAudio()
-
-// TODO: Add settings to switch between localStorage and sessionStorage (probably won't happen)
